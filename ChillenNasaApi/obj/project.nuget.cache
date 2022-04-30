@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "5yWpX6NEVEb6uV6UuAWupgdZv1maKMpjwKtT25BZHG1Q/tKaaH2kwswF8M0Pn4lpAaC+yglybKBdM6zrm+wj8w==",
+  "success": true,
+  "projectFilePath": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\ChillenNasaApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jehrh\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
