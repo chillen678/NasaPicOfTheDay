@@ -4,33 +4,111 @@
 @{
 }
 
+<div class="card" style="width: 50rem; margin:2%">
+    <div class="card-body">
+        <h5 class="card-title">Query Mars Rover</h5>
+        @await Component.InvokeAsync("Rovers")
+        <div>
+            <label for="planets">Choose Query Type:</label>
+            <select name="planets" id="planets" onchange="ChangeQueryType(this)">
+                <option value=""></option>
+                <option value="earth">Earth Date</option>
+                <option value="mars">Martian Sol</option>
+            </select>
+        </div>
 
+        <div id="earthDateContainer" style="display:none;">
+            <label for="earth_date">CHoose Earth Date:</label>
+            <input type="date" name="earth_date" id="earth_date">
+        </div>
 
-@await Component.InvokeAsync("Rovers");
+        <div id="solNumberContainer" style="display:none;">
+            <label for="solNumber">Choose Sol Number:</label>
+            <input type="number" name="solNumber" id="solNumber">
+        </div>
 
-@await Component.InvokeAsync("RoverCameras");
-<div id="mani">
-    @await Component.InvokeAsync("MissionManifest");
+        @await Component.InvokeAsync("RoverCameras")
+
+        <div id="pageNumber">
+            <label for="pageNum">Choose Page Number:</label>
+            <input type="number" name="pageNum" id="pageNum">
+        </div>
+    </div>
+</div>
+
+<div id="mani" style="margin:2%;">
+    @await Component.InvokeAsync("MissionManifest")
 </div>
 
 
+
+
 @section Scripts{
-    <script>
-   $(document).ready(function () {
-        $('#SelectRoverType').on("change",function () {
-            {
-              console.log("made it here");
-                var _url = '@Url.Action("GetManifest", "MarsRovers")';
-                $.ajax({
-                    type: "GET",
-                    url: _url,
-                    data: { _roverName: $("#SelectRoverType option:selected").text() },
-                    success: function (result) {
-                        $("#mani").html(result);
-                    },
-                });
-            }
+<script>
+
+    function ChangeQueryType(e){
+        if($("#planets option:selected").val() == "earth"){
+            document.getElementById('earthDateContainer').style.display= "block";
+            document.getElementById('solNumberContainer').style.display= "none";
+            $("#solNumber").val("");
+        }
+        else if($("#planets option:selected").val() == "mars"){
+            document.getElementById('solNumberContainer').style.display= "block";
+            document.getElementById('earthDateContainer').style.display= "none";
+            $("#earth_date").val("") ;
+        }
+        else{
+            document.getElementById('solNumberContainer').style.display= "none";
+            document.getElementById('earthDateContainer').style.display= "none";
+            $("#earth_date").val("");
+            $("#solNumber").val("");
+        }
+    }
+
+    function selectRoverType(){
+        var _url = '@Url.Action("GetManifest", "MarsRovers")';
+        $.ajax({
+            type: "GET",
+            url: _url,
+            data: {
+                _roverName: $("#SelectRoverType option:selected").text() ,
+                _queryType: $("#planets option:selected").val() ,
+                _queryEarthDate: $("#earth_date").val() ,
+                _querySol: $("#solNumber").val() ,
+            },
+            success: function (result) {
+                $("#mani").html(result);
+            },
         });
-    });
-    </script>
+
+    }
+
+    function Refre3shCameraDropDown(Cameras){
+        var _url = '@Url.Action("GetManifest", "MarsRovers")';
+        $.ajax({
+            type: "GET",
+            url: _url,
+            data: {
+                _cameras: Cameras,
+            },
+            success: function (result) {
+                
+            },
+        });
+
+    }
+
+
+    $(document).ready(function () {
+        $('#SelectRoverType').on("change",function () {
+            selectRoverType();
+        })
+        $('#earth_date').on("change",function () {
+            selectRoverType();
+        })
+        $('#solNumber').on("change",function () {
+            selectRoverType();
+        })
+     });
+</script>
 }

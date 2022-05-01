@@ -1,6 +1,26 @@
 ﻿@{
     @model Manifest;
-
+    int totalPage = 0;
+    string cams = "";
+    if (Model != null && Model.choosenDateInfo !=null && int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
+    {
+        totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) /25;
+    }
+    else
+    {
+        if (Model != null && Model.choosenDateInfo !=null)
+        {
+            totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) /25;
+        }
+    }
+    if (Model != null && Model.choosenDateInfo !=null){
+        foreach(var cam in Model.choosenDateInfo[0].cameras)
+        {
+            cams += cam + ", ";
+        }
+        cams= cams.TrimEnd(' ');
+        cams= cams.TrimEnd(',');
+    }
 }
 
 <div class="card" style="width: 33rem; margin:2%">
@@ -14,7 +34,16 @@
             <label><b>Status:</b> @Model.photo_manifest.status </label>
             <label><b>Max SOl:</b> @String.Format("{0:n0}", int.Parse(@Model.photo_manifest.max_sol)) </label>
             <label><b>Max Date:</b> @Model.photo_manifest.max_date.Value.ToShortDateString() </label>
-            <label><b>Total Photos: </b>@String.Format("{0:n0}", int.Parse(@Model.photo_manifest.total_photos)) </label>
+            @if (Model != null && Model.choosenDateInfo != null)
+            {
+                <label><b>Number Of Photos for Selected Day: </b>@String.Format("{0:n0}", Model.choosenDateInfo[0].total_photos) </label>
+                <label><b>Cameras in Use: </b>@cams</label>
+                <label><b>Total Pages: </b>@String.Format("{0:n0}", totalPage) </label>
+            }
         }
     </div>
 </div>
+
+
+
+

@@ -4,8 +4,8 @@ namespace ChillenNasaApi.Models
 {
     public class Manifest
     {
-        private photo_manifest _photo_manifest;     
-      
+        private photo_manifest _photo_manifest;
+        private List<Photos> _choosenDateInfo;
         public photo_manifest photo_manifest
         {
             get
@@ -15,6 +15,20 @@ namespace ChillenNasaApi.Models
             set
             {
                 _photo_manifest = value;
+            }
+        }
+
+        
+
+        public List<Photos> choosenDateInfo
+        {
+            get
+            {
+                return _choosenDateInfo;
+            }
+            set
+            {
+                _choosenDateInfo = value;
             }
         }
     }
