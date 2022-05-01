@@ -16,11 +16,10 @@ namespace ChillenNasaApi.Controllers
             return ViewComponent("MissionManifest", new { roverName = _roverName, QueryType = _queryType, QueryEarthDate = _queryEarthDate, QuerySol = _querySol });
         }
 
-
         [HttpGet]
-        public IActionResult RefreshCameras(List<cameras> cams)
+        public IActionResult RefreshCameras(string Cameraname, string roverName, string type, string _queryEarthDate, string _querySol, string page = "")
         {
-            return ViewComponent("RoverCameras", new {  });
+            return ViewComponent("RoverCameras", new { Cameraname=  Cameraname, roverName = roverName, type = type, queryEarthDate = _queryEarthDate, querySol= _querySol, page= page  });
         }
 
     }

@@ -2,24 +2,25 @@
     @model Manifest;
     int totalPage = 0;
     string cams = "";
-    if (Model != null && Model.choosenDateInfo !=null && int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
+    if (Model != null && Model.choosenDateInfo != null && int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
     {
-        totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) /25;
+        totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) / 25;
     }
     else
     {
-        if (Model != null && Model.choosenDateInfo !=null)
+        if (Model != null && Model.choosenDateInfo != null)
         {
-            totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) /25;
+            totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) / 25;
         }
     }
-    if (Model != null && Model.choosenDateInfo !=null){
-        foreach(var cam in Model.choosenDateInfo[0].cameras)
+    if (Model != null && Model.choosenDateInfo != null)
+    {
+        foreach (var cam in Model.choosenDateInfo[0].cameras)
         {
             cams += cam + ", ";
         }
-        cams= cams.TrimEnd(' ');
-        cams= cams.TrimEnd(',');
+        cams = cams.TrimEnd(' ');
+        cams = cams.TrimEnd(',');
     }
 }
 
@@ -28,18 +29,40 @@
         <h5 class="card-title">Manifest Information</h5>
         @if (@Model != null)
         {
-            <label><b>Name:</b> @Model.photo_manifest.name </label>
-            <label><b>Landing Date:</b> @Model.photo_manifest.landing_date.Value.ToShortDateString() </label>
-            <label><b>Launch Date:</b> @Model.photo_manifest.launch_date.Value.ToShortDateString() </label>
-            <label><b>Status:</b> @Model.photo_manifest.status </label>
-            <label><b>Max SOl:</b> @String.Format("{0:n0}", int.Parse(@Model.photo_manifest.max_sol)) </label>
-            <label><b>Max Date:</b> @Model.photo_manifest.max_date.Value.ToShortDateString() </label>
-            @if (Model != null && Model.choosenDateInfo != null)
-            {
-                <label><b>Number Of Photos for Selected Day: </b>@String.Format("{0:n0}", Model.choosenDateInfo[0].total_photos) </label>
-                <label><b>Cameras in Use: </b>@cams</label>
-                <label><b>Total Pages: </b>@String.Format("{0:n0}", totalPage) </label>
-            }
+            <div class="row">
+                <div class="col-3">
+                    <label><b>Rover Name:</b> @Model.photo_manifest.name </label>
+                </div>
+                <div class="col-3">
+                    <label><b>Landing Date:</b> @Model.photo_manifest.landing_date.Value.ToShortDateString() </label>
+                </div>
+                <div class="col-3">
+                    <label><b>Launch Date:</b> @Model.photo_manifest.launch_date.Value.ToShortDateString() </label>
+                </div>
+                <div class="col-3">
+                    <label><b>Status:</b> @Model.photo_manifest.status </label>
+                </div>
+                <div class="col-3">
+                    <label><b>Max SOl:</b> @String.Format("{0:n0}", int.Parse(@Model.photo_manifest.max_sol)) </label>
+                </div>
+                <div class="col-3">
+                    <label><b>Max Date:</b> @Model.photo_manifest.max_date.Value.ToShortDateString() </label>
+                </div>
+                @if (Model != null && Model.choosenDateInfo != null)
+                {
+                    <div class="col-3">
+                        <label><b>Number Of Photos for Selected Day: </b>@String.Format("{0:n0}", Model.choosenDateInfo[0].total_photos) </label>
+                    </div>
+                    <div class="col-3">
+                        <b>Cameras in Use: </b>
+
+                        <label id="camsAvaiManiAndDate">@cams</label>
+                    </div>
+                    <div class="col-3">
+                        <label><b>Total Pages: </b>@String.Format("{0:n0}", totalPage) </label>
+                    </div>
+                }
+            </div>
         }
     </div>
 </div>

@@ -1,46 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-<div class="card" style="width: 50rem; margin:2%">
-    <div class="card-body">
-        <h5 class="card-title">Query Mars Rover</h5>
-        @await Component.InvokeAsync("Rovers")
-        <div>
-            <label for="planets">Choose Query Type:</label>
-            <select name="planets" id="planets" onchange="ChangeQueryType(this)">
-                <option value=""></option>
-                <option value="earth">Earth Date</option>
-                <option value="mars">Martian Sol</option>
-            </select>
+﻿
+<div class="row">
+    <div class="card-group">
+        <div class="col-3">
+            <div class="card" style=" margin:2%">
+                <div class="card-body">
+                    <h5 class="card-title">Query Mars Rover</h5>
+                    @await Component.InvokeAsync("Rovers")
+                    <div>
+                        <label for="planets">Choose Query Type:</label>
+                        <select name="planets" id="planets" onchange="ChangeQueryType(this)">
+                            <option value=""></option>
+                            <option value="earth">Earth Date</option>
+                            <option value="mars">Martian Sol</option>
+                        </select>
+                    </div>
+                    <div id="earthDateContainer" style="display:none;">
+                        <label for="earth_date">CHoose Earth Date:</label>
+                        <input type="date" name="earth_date" id="earth_date">
+                    </div>
+                    <div id="solNumberContainer" style="display:none;">
+                        <label for="solNumber">Choose Sol Number:</label>
+                        <input type="number" name="solNumber" id="solNumber">
+                    </div>
+                    <div id="pageNumber">
+                        <label for="pageNum">Choose Page Number:</label>
+                        <input type="number" name="pageNum" id="pageNum">
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div id="earthDateContainer" style="display:none;">
-            <label for="earth_date">CHoose Earth Date:</label>
-            <input type="date" name="earth_date" id="earth_date">
+        @*<div class="col-8">
+            <div class="card" style="margin:2%">
+                <div class="card-body">
+                    <img class="card-img" src="~/images/NasaRoverCameraQuickInfo.PNG" alt="Image missing">
+                </div>
+            </div>
+        </div>*@
+        <div id="mani" style="margin:2%;">
+            @await Component.InvokeAsync("RoverCameras")
         </div>
+        @**@
 
-        <div id="solNumberContainer" style="display:none;">
-            <label for="solNumber">Choose Sol Number:</label>
-            <input type="number" name="solNumber" id="solNumber">
-        </div>
-
-        @await Component.InvokeAsync("RoverCameras")
-
-        <div id="pageNumber">
-            <label for="pageNum">Choose Page Number:</label>
-            <input type="number" name="pageNum" id="pageNum">
-        </div>
     </div>
 </div>
 
-<div id="mani" style="margin:2%;">
+
+<div id="CameraContainer">
     @await Component.InvokeAsync("MissionManifest")
 </div>
 
-
+<div class="modal fade" id="nasaModal" name="nasaModal" tabindex="-1" style="width:90%">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nasa Picture Of The Day</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 id="modalTitle"></h5>
+                <h6 id="modalDate"></h6>
+                <p id="modalExplanation"></p>
+                <div style="position: relative;">
+                    <img id="modalImage" src="" alt="Image missing" style="height:auto;width:100%;">
+                </div>
+                <div style="position: relative;">
+                    <iframe id="modalVideo" style="width:100%; height:400px">
+                    </iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{
@@ -77,25 +110,41 @@
                 _querySol: $("#solNumber").val() ,
             },
             success: function (result) {
+
                 $("#mani").html(result);
+                AddRoverCameras();
             },
         });
 
     }
 
-    function Refre3shCameraDropDown(Cameras){
-        var _url = '@Url.Action("GetManifest", "MarsRovers")';
-        $.ajax({
-            type: "GET",
-            url: _url,
-            data: {
-                _cameras: Cameras,
-            },
-            success: function (result) {
-                
-            },
-        });
+    function AddRoverCameras(){
 
+        var camNames = document.getElementById('camsAvaiManiAndDate').innerHTML;
+        if(camNames == null){
+            return;
+        }
+        const availableCamNames = camNames.split(", ");
+        for(const OneCam of availableCamNames){
+            console.log("one cam: " + OneCam)
+        var _url = '@Url.Action("RefreshCameras", "MarsRovers")';
+            $.ajax({
+                type: "GET",
+                url: _url,
+                data: {
+                    Cameraname:  OneCam,
+                    roverName : $("#SelectRoverType option:selected").text() ,
+                    type : $("#planets option:selected").val(),
+                    _queryEarthDate: $("#earth_date").val() ,
+                    _querySol: $("#solNumber").val() ,
+                    page: $("#pageNum").val(),
+                },
+                success: function (result) {
+                   $("#CameraContainer").append(result);
+                    //document.getElementById('CameraContainer').append(result);
+                },
+            });
+        }
     }
 
 
@@ -105,9 +154,15 @@
         })
         $('#earth_date').on("change",function () {
             selectRoverType();
+            //AddRoverCameras();
         })
         $('#solNumber').on("change",function () {
             selectRoverType();
+            //AddRoverCameras();
+        })
+        $('#pageNum').on("change",function () {
+
+            AddRoverCameras();
         })
      });
 </script>
