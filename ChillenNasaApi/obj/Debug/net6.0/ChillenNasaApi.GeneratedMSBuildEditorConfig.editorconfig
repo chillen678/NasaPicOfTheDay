@@ -23,6 +23,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/projects/NasaPicOfTheDay/ChillenNasaApi/Views/MarsRovers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFyc1JvdmVyc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/NasaPicOfTheDay/ChillenNasaApi/Views/Shared/Components/MissionManifest/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWlzc2lvbk1hbmlmZXN0XERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/NasaPicOfTheDay/ChillenNasaApi/Views/Shared/Components/RoverCameras/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUm92ZXJDYW1lcmFzXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/projects/NasaPicOfTheDay/ChillenNasaApi/Views/Shared/Components/Rovers/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUm92ZXJzXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/projects/NasaPicOfTheDay/ChillenNasaApi/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,8 @@
+﻿@{
+    @model Rover;
+}
+
+<b>Select Rover: </b> 
+ 
+@Html.DropDownList("SelectRoverType", new SelectList(Enum.GetValues(typeof(RoverType))),"--Select Rover--")
+

@@ -1,0 +1,20 @@
+﻿@{
+    @model Manifest;
+
+}
+
+<div class="card" style="width: 33rem; margin:2%">
+    <div class="card-body">
+        <h5 class="card-title">Manifest Information</h5>
+        @if (@Model != null)
+        {
+            <label><b>Name:</b> @Model.photo_manifest.name </label>
+            <label><b>Landing Date:</b> @Model.photo_manifest.landing_date.Value.ToShortDateString() </label>
+            <label><b>Launch Date:</b> @Model.photo_manifest.launch_date.Value.ToShortDateString() </label>
+            <label><b>Status:</b> @Model.photo_manifest.status </label>
+            <label><b>Max SOl:</b> @String.Format("{0:n0}", int.Parse(@Model.photo_manifest.max_sol)) </label>
+            <label><b>Max Date:</b> @Model.photo_manifest.max_date.Value.ToShortDateString() </label>
+            <label><b>Total Photos: </b>@String.Format("{0:n0}", int.Parse(@Model.photo_manifest.total_photos)) </label>
+        }
+    </div>
+</div>
