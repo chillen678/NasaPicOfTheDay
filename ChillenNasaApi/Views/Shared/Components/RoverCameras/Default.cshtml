@@ -3,29 +3,30 @@
 
 }
 
-<div class="border border-primary">
+<div class="border border-primary" style="margin:3%">
     <div class="row">
         @if (Model != null && Model.photos != null)
         {
-
-            <h4 class="card-subtitle mb-2 text-muted"> @Model.photos[0].earth_date</h4>
-            <h5 class="card-subtitle mb-2 text-muted"> @Model.photos[0].camera.name</h5>
-            <h6 class="card-subtitle mb-2 text-muted"> @Model.photos[0].camera.full_name</h6>
+            <div class="text-center" style="margin:2%">
+                <h4 class="card-subtitle mb-2 text-muted"> @Model.photos[0].earth_date</h4>
+                <h5 class="card-subtitle mb-2 text-muted"> @Model.photos[0].camera.name</h5>
+                <h6 class="card-subtitle mb-2 text-muted"> @Model.photos[0].camera.full_name</h6>
+            </div>
             <div class="card-group">
                 @foreach (var m in Model.photos)
                 {
                     <div class="col-3">
                         <div class="card " style="width: 18rem;margin:5%">
                             <div class="card-body align-content-center">
-                                <h5 class="card-title">@m.camera.name</h5>               
-                                    <a href="#" class="card-link popuptitle" onclick="ShowPopUp(this)">
-                                        <img class="card-img" src=@m.img_src alt="Image missing" />
-                                    </a>
+                                <h5 class="card-title">@m.camera.name</h5>
+                                <a href="#" class="card-link popuptitle" onclick="ShowMarsPopUp(this)">
+                                    <img class="card-img" src=@m.img_src alt="Image missing" />
+                                </a>
                             </div>
                         </div>
                     </div>
-                }         
-        </div>
+                }
+            </div>
         }
-    </div>   
+    </div>
 </div>

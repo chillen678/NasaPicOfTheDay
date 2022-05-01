@@ -29,7 +29,7 @@
             string BuildTheApiUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + roverName + "/photos?";
             if (type == "earth")
             {
-                BuildTheApiUrl += "earth_date=" + queryEarthDate + "&camera="+ Cameraname;
+                BuildTheApiUrl += "earth_date=" + queryEarthDate + "&camera=" + Cameraname;
             }
             else
             {
@@ -37,7 +37,7 @@
             }
             //if (!string.IsNullOrEmpty(page))
             //{
-                BuildTheApiUrl += "&page=" + 1;
+            BuildTheApiUrl += "&page=" + 1;
             //}
             BuildTheApiUrl += "&api_key=" + _justKey;
 

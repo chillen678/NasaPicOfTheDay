@@ -5,12 +5,24 @@
     if (Model != null && Model.choosenDateInfo != null && int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
     {
         totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) / 25;
+        int addAPage = 0;
+        if(int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
+        {
+            addAPage++;
+        };
+        totalPage = totalPage + addAPage;
     }
     else
     {
         if (Model != null && Model.choosenDateInfo != null)
         {
             totalPage = int.Parse(Model.choosenDateInfo[0].total_photos) / 25;
+            int addAPage = 0;
+            if(int.Parse(Model.choosenDateInfo[0].total_photos) % 2 > 0)
+            {
+                addAPage++;
+            };
+            totalPage = totalPage + addAPage;
         }
     }
     if (Model != null && Model.choosenDateInfo != null)
@@ -24,7 +36,7 @@
     }
 }
 
-<div class="card" style="width: 33rem; margin:2%">
+<div class="card" style="width: 40rem; margin:2%">
     <div class="card-body">
         <h5 class="card-title">Manifest Information</h5>
         @if (@Model != null)

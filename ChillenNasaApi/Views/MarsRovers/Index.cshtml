@@ -1,12 +1,12 @@
 ﻿
 <div class="row">
     <div class="card-group">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card" style=" margin:2%">
                 <div class="card-body">
                     <h5 class="card-title">Query Mars Rover</h5>
                     @await Component.InvokeAsync("Rovers")
-                    <div>
+                    <div style="margin:1%">
                         <label for="planets">Choose Query Type:</label>
                         <select name="planets" id="planets" onchange="ChangeQueryType(this)">
                             <option value=""></option>
@@ -14,28 +14,18 @@
                             <option value="mars">Martian Sol</option>
                         </select>
                     </div>
-                    <div id="earthDateContainer" style="display:none;">
-                        <label for="earth_date">CHoose Earth Date:</label>
+                    <div id="earthDateContainer" style="display:none;" margin:1%;">
+                        <label for="earth_date">Choose Earth Date:</label>
                         <input type="date" name="earth_date" id="earth_date">
                     </div>
-                    <div id="solNumberContainer" style="display:none;">
+                    <div id="solNumberContainer" style="display:none;" margin:1%;">
                         <label for="solNumber">Choose Sol Number:</label>
                         <input type="number" name="solNumber" id="solNumber">
                     </div>
-                    <div id="pageNumber">
-                        <label for="pageNum">Choose Page Number:</label>
-                        <input type="number" name="pageNum" id="pageNum">
-                    </div>
+
                 </div>
             </div>
         </div>
-        @*<div class="col-8">
-            <div class="card" style="margin:2%">
-                <div class="card-body">
-                    <img class="card-img" src="~/images/NasaRoverCameraQuickInfo.PNG" alt="Image missing">
-                </div>
-            </div>
-        </div>*@
         <div id="mani" style="margin:2%;">
             @await Component.InvokeAsync("RoverCameras")
         </div>
@@ -43,13 +33,13 @@
 
     </div>
 </div>
-
-
 <div id="CameraContainer">
-    @await Component.InvokeAsync("MissionManifest")
+    <div id="pageNumber" style="display:none;">
+        <label for="pageNum">Choose Page Number:</label>
+        <input type="number" name="pageNum" id="pageNum">
+    </div>
 </div>
-
-<div class="modal fade" id="nasaModal" name="nasaModal" tabindex="-1" style="width:90%">
+<div class="modal fade" id="marsRoverModal" name="marsRoverModal" tabindex="-1" style="width:90%">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -57,15 +47,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5 id="modalTitle"></h5>
-                <h6 id="modalDate"></h6>
-                <p id="modalExplanation"></p>
                 <div style="position: relative;">
-                    <img id="modalImage" src="" alt="Image missing" style="height:auto;width:100%;">
-                </div>
-                <div style="position: relative;">
-                    <iframe id="modalVideo" style="width:100%; height:400px">
-                    </iframe>
+                    <img id="marsRovermodalImage" src="" alt="Image missing" style="height:auto;width:100%;">
                 </div>
             </div>
             <div class="modal-footer">
@@ -100,6 +83,7 @@
 
     function selectRoverType(){
         var _url = '@Url.Action("GetManifest", "MarsRovers")';
+        $("#CameraContainer").empty();
         $.ajax({
             type: "GET",
             url: _url,
@@ -110,23 +94,19 @@
                 _querySol: $("#solNumber").val() ,
             },
             success: function (result) {
-
                 $("#mani").html(result);
                 AddRoverCameras();
             },
         });
-
     }
 
     function AddRoverCameras(){
-
         var camNames = document.getElementById('camsAvaiManiAndDate').innerHTML;
         if(camNames == null){
             return;
         }
         const availableCamNames = camNames.split(", ");
         for(const OneCam of availableCamNames){
-            console.log("one cam: " + OneCam)
         var _url = '@Url.Action("RefreshCameras", "MarsRovers")';
             $.ajax({
                 type: "GET",
@@ -141,12 +121,11 @@
                 },
                 success: function (result) {
                    $("#CameraContainer").append(result);
-                    //document.getElementById('CameraContainer').append(result);
+                   document.getElementById('pageNumber').style.display= "block";
                 },
             });
         }
     }
-
 
     $(document).ready(function () {
         $('#SelectRoverType').on("change",function () {
@@ -154,14 +133,11 @@
         })
         $('#earth_date').on("change",function () {
             selectRoverType();
-            //AddRoverCameras();
         })
         $('#solNumber').on("change",function () {
             selectRoverType();
-            //AddRoverCameras();
         })
         $('#pageNum').on("change",function () {
-
             AddRoverCameras();
         })
      });

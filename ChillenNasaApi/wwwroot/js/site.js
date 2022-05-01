@@ -58,3 +58,14 @@ document.addEventListener('readystatechange', event => {
         overlayOff()
     }
 });
+
+function ShowMarsPopUp(e) {
+
+    var myModal = new bootstrap.Modal(document.getElementById('marsRoverModal'))
+    var img = e.parentNode.children[1].children[0].src;
+    var modalImage = document.getElementById('marsRovermodalImage');
+        modalImage.src = img;
+
+    
+    myModal.show()
+}
