@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kzOzmKTHSsHG4bRADUzQy5ItoHUmYkgjavh/dkDHfRE=",
+  "Hash": "g9joaObCEaAabawimsqYKkaVE2ynxALa/baznNxoGhE=",
   "Source": "ChillenNasaApi",
   "BasePath": "_content/ChillenNasaApi",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\images\\backgroundNasa.png",
+      "SourceId": "ChillenNasaApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\",
+      "BasePath": "_content/ChillenNasaApi",
+      "RelativePath": "images/backgroundNasa.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\backgroundNasa.png"
+    },
+    {
       "Identity": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\images\\NasaRoverCameraQuickinfo.PNG",
       "SourceId": "ChillenNasaApi",
       "SourceType": "Discovered",
@@ -100,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\NasaRoverCameraQuickinfo.PNG"
+    },
+    {
+      "Identity": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\images\\WhatAGal.jpg",
+      "SourceId": "ChillenNasaApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\",
+      "BasePath": "_content/ChillenNasaApi",
+      "RelativePath": "images/WhatAGal.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\WhatAGal.jpg"
     },
     {
       "Identity": "C:\\projects\\NasaPicOfTheDay\\ChillenNasaApi\\wwwroot\\js\\site.js",

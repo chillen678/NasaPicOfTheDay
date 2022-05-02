@@ -53,5 +53,13 @@ form{
 
 
 
+body {
+    background-image: url(../Images/WhatAGal.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
 
 

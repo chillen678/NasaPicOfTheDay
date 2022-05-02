@@ -5,74 +5,91 @@
 
 
 
-<div class="card" style="width: 33rem;">
-    <div class="card-body">
-        <h5 class="card-title">Astronomy Picture of the Day</h5>
-        <form id="searchPictureOfTheDay" action="~/Home/Index" method="post">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-4" style="padding:3%">
-                        <label for="startDate">Start Date:</label>
-                        @if(@Model.searchParamaters.startDate != null){
-                            <input type="date" name="startDate" id="startDate" value=@Model.searchParamaters.startDate.Value.ToString("yyyy-MM-dd")>
-                        }
-                        else{
-                            <input type="date" name="startDate" id="startDate">
-                        }
+    <div class="card" style="width: 33rem;">
+        <div class="card-body">
+            <h5 class="card-title">Astronomy Picture of the Day</h5>
+            <form id="searchPictureOfTheDay" action="~/Home/Index" method="post">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-4" style="padding:3%">
+                            <label for="startDate">Start Date:</label>
+                            @if (@Model != null && @Model.searchParamaters != null && @Model.searchParamaters.startDate != null)
+                            {
+                                <input type="date" name="startDate" id="startDate" value=@Model.searchParamaters.startDate.Value.ToString("yyyy-MM-dd")>
+                            }
+                            else
+                            {
+                                <input type="date" name="startDate" id="startDate">
+                            }
+                        </div>
+                        <div class="col-4" style="padding:3%">
+                            <label for="endDate">End Date:</label>
+                            @if (@Model != null && @Model.searchParamaters.endDate != null)
+                            {
+                                <input type="date" name="endDate" id="endDate" value=@Model.searchParamaters.endDate.Value.ToString("yyyy-MM-dd")>
+                            }
+                            else
+                            {
+                                <input type="date" name="endDate" id="endDate">
+                            }
+                        </div>
                     </div>
-                    <div class="col-4" style="padding:3%">
-                        <label for="endDate">End Date:</label>                
-                        @if(@Model.searchParamaters.endDate != null){
-                            <input type="date" name="endDate" id="endDate" value=@Model.searchParamaters.endDate.Value.ToString("yyyy-MM-dd")>
-                        }
-                        else{
-                            <input type="date" name="endDate" id="endDate">
-                        }
+                    <div class="row align-items-center">
+                        <div class="col-4" style="padding:3%">
+                            <button name="SeachDays" type="submit" onclick="searchPictureOfTheDay(this.parentElement, event)">Search</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row align-items-center">
-                    <div class="col-4" style="padding:3%">
-                        <button name="SeachDays" type="submit" onclick="searchPictureOfTheDay(this.parentElement, event)">Search</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-
-<div class="row row-cols-1 row-cols-md-8 g-3">
-    <div class="card-group">
-    @foreach (var m in Model.apdList)
-    {
-        <div class="col-3">
-            <div class="card " style="width: 18rem;margin:5%">
-                <div class="card-body align-content-center">
-                    <h5 class="card-title">@m.title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"> @DateTime.Parse(@m.date).ToShortDateString()</h6>
-                    <input type="text" name="explanation" id="explanation" value="@m.explanation" style="display:none;">
-                    <input type="text" name="media_type" id="media_type" value="@m.media_type" style="display:none;">
-                    @if (@m.media_type == "video")
-                    {                  
-                        <iframe class="card-img" src=@m.url style="display:none;">
-                        </iframe>
-                        <a href="#" class="card-link popuptitle" onclick="ShowPopUp(this)">
-                            <img class="card-img" src=@m.thumbnail_url alt="Image missing">
-                        </a>                   
-                    }
-                    else
-                    {
-                        <iframe style="display:none;">
-                        </iframe>
-                        <a href="#" class="card-link popuptitle" onclick="ShowPopUp(this)">
-                            <img class="card-img" src=@m.hdurl alt="Image missing">
-                        </a>
-                    }
+@if (@Model != null)
+{
+    <div class="row row-cols-1 row-cols-md-8 g-3">
+        <div class="card-group">
+            @foreach (var m in Model.apdList)
+            {
+                <div class="col-3">
+                    <div class="card " style="width: 18rem;margin:5%">
+                        <div class="card-body align-content-center">
+                            <h5 class="card-title">@m.title</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"> @DateTime.Parse(@m.date).ToShortDateString()</h6>
+                            <input type="text" name="explanation" id="explanation" value="@m.explanation" style="display:none;">
+                            <input type="text" name="media_type" id="media_type" value="@m.media_type" style="display:none;">
+                            @if (@m.media_type == "video")
+                            {
+                                <iframe class="card-img" src=@m.url style="display:none;">
+                                </iframe>
+                                <a href="#" class="card-link popuptitle" onclick="ShowPopUp(this)">
+                                    <img class="card-img" src=@m.thumbnail_url alt="Image missing">
+                                </a>
+                            }
+                            else
+                            {
+                                <iframe style="display:none;">
+                                </iframe>
+                                <a href="#" class="card-link popuptitle" onclick="ShowPopUp(this)">
+                                    <img class="card-img" src=@m.hdurl alt="Image missing">
+                                </a>
+                            }
+                        </div>
+                    </div>
                 </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="col-3">
+        <div class="card " style="width: 18rem;margin:5%">
+            <div class="card-body align-content-center">
+                <h5 class="card-title">No Picture Available</h5>
             </div>
         </div>
-    }
     </div>
-</div>
+}
+
 
 <div class="modal fade" id="nasaModal" name="nasaModal" tabindex="-1" style="width:90%">
     <div class="modal-dialog modal-lg">
@@ -82,8 +99,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5 id="modalTitle"></h5>
-                <h6 id="modalDate"></h6>
+                <h5 id="modalTitle" style="text-align:center;"></h5>
+                <h6 id="modalDate" style="text-align:center;"></h6>
                 <p id="modalExplanation"></p>
                 <div style="position: relative;">
                     <img id="modalImage" src="" alt="Image missing" style="height:auto;width:100%;">

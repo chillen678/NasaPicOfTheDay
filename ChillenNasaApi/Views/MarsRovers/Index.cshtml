@@ -26,10 +26,12 @@
                 </div>
             </div>
         </div>
-        <div id="mani" style="margin:2%;">
-            @await Component.InvokeAsync("RoverCameras")
+        <div class="col-4">
+            <div id="mani" style="margin:2%;">
+                @await Component.InvokeAsync("MissionManifest")
+            </div>
         </div>
-        @**@
+        
 
     </div>
 </div>
@@ -101,7 +103,10 @@
     }
 
     function AddRoverCameras(){
-        var camNames = document.getElementById('camsAvaiManiAndDate').innerHTML;
+        var camNames = null;
+        if(document.getElementById('camsAvaiManiAndDate') != null){
+            camNames = document.getElementById('camsAvaiManiAndDate').innerHTML
+        }
         if(camNames == null){
             return;
         }
@@ -121,20 +126,33 @@
                 },
                 success: function (result) {
                    $("#CameraContainer").append(result);
-                   document.getElementById('pageNumber').style.display= "block";
+                   //document.getElementById('pageNumber').style.display= "block";
                 },
             });
         }
     }
 
+    function ClearTypeDateSol(){
+        //$("#SelectRoverType").val($("#SelectRoverType option:first").val());
+        $("#planets").val($("#planets option:first").val());
+        $("#earth_date").val("");
+        $("#solNumber").val("");
+        document.getElementById('solNumberContainer').style.display= "none";
+        document.getElementById('earthDateContainer').style.display= "none";
+    }
+
+
     $(document).ready(function () {
         $('#SelectRoverType').on("change",function () {
+            ClearTypeDateSol();
             selectRoverType();
         })
         $('#earth_date').on("change",function () {
+            $("#solNumber").val();
             selectRoverType();
         })
         $('#solNumber').on("change",function () {
+            $("#earth_date").val();
             selectRoverType();
         })
         $('#pageNum').on("change",function () {
